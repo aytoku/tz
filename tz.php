@@ -31,6 +31,19 @@ $example = array_filter($example, "delete");
 //часть 2:Написать собственный класс для работы с MS Office документами
 //MS Word document
 <?php
+set_error_handler('err_handler');
+function err_handler($errno, $errmsg, $filename, $linenum) {
+$date = date('Y-m-d H:i:s (T)');
+$f = fopen('errors.txt', 'a');
+if (!empty($f)) {
+$filename  =str_replace($_SERVER['DOCUMENT_ROOT'],'',$filename);
+$err  = "$errmsg = $filename = $linenum\r\n";
+fwrite($f, $err);
+fclose($f);
+}
+}
+//ini_set('log_errors', 'On');
+//ini_set('error_log', '/var/log/php_errors.log');
 //создаем новый объект используя библиотеку COM
 $w = new COM("word.application");
 
@@ -88,8 +101,10 @@ unset($sheet);
 unset($excel);
 
 ?>
-
-
+<?php
+date("Y-m-d H:i:s", time());
+?>
+//$phpexcel = new PHPExcel();
 //Знание SQL
 select temp.group_id as "группа", COUNT(temp.id) as "к-во записей", MIN(temp.id) as "минимальный id" 
 from temp 
