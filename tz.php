@@ -40,11 +40,9 @@ $w->Visible = 0;
 //Создаем новый документ
 $w->Documents->Add();
 
-//Отступы в документе
 $w->Selection->PageSetup->LeftMargin = '2"';
 $w->Selection->PageSetup->RightMargin = '2"';
 
-//Шрифт
 $w->Selection->Font->Name = 'Verdana';
 $w->Selection->Font->Size = 8;
 
@@ -63,7 +61,7 @@ $w = null;
 ?>
 
 //MS Excel document
-< ?php
+<?php
 
 
 $ex = new COM("excel.application");
@@ -73,9 +71,9 @@ $ex->Visible = 0;
 $wkb = $excel->Workbooks->Add();
 $sheet = $wkb->Worksheets(1);
 
-//Выбираем активный лист и устанавливаем курсов в область ячейки (2, 4)
+//Выбираем активный лист и устанавливаем курсов в область ячейки (1, 3)
 $sheet->activate;
-$cell = $sheet->Cells(2,4);
+$cell = $sheet->Cells(1,3);
 $cell->Activate;
 
 //Записываем в ячейку текст
@@ -90,3 +88,9 @@ unset($sheet);
 unset($excel);
 
 ?>
+
+
+//Знание SQL
+select temp.group_id as "группа", COUNT(temp.id) as "к-во записей", MIN(temp.id) as "минимальный id" 
+from temp 
+group by temp.group_id;
