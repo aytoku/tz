@@ -1,4 +1,4 @@
-//знания php: часть 1 Требуется убрать все ключи с пустыми значениями на PHP
+<!--знания php: часть 1 Требуется убрать все ключи с пустыми значениями на PHP-->
 <?php
 
 function delete($del_emp) {
@@ -28,10 +28,10 @@ $example = array_filter($example, "delete");
 ?>
 
 
-//часть 2:Написать собственный класс для работы с MS Office документами
-//MS Word document
+<!--часть 2:Написать собственный класс для работы с MS Office документами
+MS Word document-->
 <?php
-set_error_handler('err_handler');
+/*set_error_handler('err_handler');
 function err_handler($errno, $errmsg, $filename, $linenum) {
 $date = date('Y-m-d H:i:s (T)');
 $f = fopen('errors.txt', 'a');
@@ -41,7 +41,7 @@ $err  = "$errmsg = $filename = $linenum\r\n";
 fwrite($f, $err);
 fclose($f);
 }
-}
+}*/
 //ini_set('log_errors', 'On');
 //ini_set('error_log', '/var/log/php_errors.log');
 //создаем новый объект используя библиотеку COM
@@ -56,7 +56,7 @@ $w->Documents->Add();
 $w->Selection->PageSetup->LeftMargin = '2"';
 $w->Selection->PageSetup->RightMargin = '2"';
 
-$w->Selection->Font->Name = 'Verdana';
+$w->Selection->Font->Name = 'Serif';
 $w->Selection->Font->Size = 8;
 
 
@@ -73,7 +73,7 @@ $w = null;
 
 ?>
 
-//MS Excel document
+<!--MS Excel document-->
 <?php
 
 
@@ -104,8 +104,8 @@ unset($excel);
 <?php
 date("Y-m-d H:i:s", time());
 ?>
-//$phpexcel = new PHPExcel();
-//Знание SQL
-select temp.group_id as "группа", COUNT(temp.id) as "к-во записей", MIN(temp.id) as "минимальный id" 
+<!--$phpexcel = new PHPExcel();
+//Знание SQL-->
+select temp.group_id as "group_id", COUNT(temp.id) as "count", MIN(temp.id) as "min_id" 
 from temp 
 group by temp.group_id;
