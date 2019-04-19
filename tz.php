@@ -102,10 +102,33 @@ unset($excel);
 
 ?>
 <?php
+if(isset($_FILES) && $_FILES['inputfile']['error'] == 0){ // Проверка щагрузился ли файл
+$destiation_dir = dirname(__FILE__) .'/'.$_FILES['inputfile']['name']; // Директория для размещения файла
+move_uploaded_file($_FILES['inputfile']['tmp_name'], $destiation_dir ); // Перемещаем файл в директорию которую хотим
+echo 'File Uploaded'; // Файл загрежен
+}
+else{
+echo 'No File Uploaded'; // Файл не загружен
+}
+?>
+<?php
 date("Y-m-d H:i:s", time());
+$english_format_number = number_format($w);
+echo sprintf($w);
 ?>
 <!--$phpexcel = new PHPExcel();
 //Знание SQL-->
-select temp.group_id as "group_id", COUNT(temp.id) as "count", MIN(temp.id) as "min_id" 
+<!--select temp.group_id as "group_id", COUNT(temp.id) as "count", MIN(temp.id) as "min_id" 
 from temp 
-group by temp.group_id;
+group by temp.group_id;-->
+SELECT group_id
+     , count(*) AS row_count 
+     , min(id)  AS min_id    
+FROM  (
+   SELECT id
+        , group_id
+        , id - row_number() OVER (PARTITION BY group_id ORDER BY id) AS res
+   FROM   users
+   ) sub
+GROUP  BY group_id, res
+ORDER  BY min_id;  
