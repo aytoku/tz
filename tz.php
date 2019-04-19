@@ -121,9 +121,10 @@ echo sprintf($w);
 <!--select temp.group_id as "group_id", COUNT(temp.id) as "count", MIN(temp.id) as "min_id" 
 from temp 
 group by temp.group_id;-->
-SELECT group_id
+SELECT min(id)  AS min_id 
+       , group_id
      , count(*) AS row_count 
-     , min(id)  AS min_id    
+          
 FROM  (
    SELECT id
         , group_id
